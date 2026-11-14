@@ -2539,6 +2539,22 @@
       ]
     },
     {
+      "start": "2026-05-06T18:30:00+00:00",
+      "end": "2026-05-06T19:00:00+00:00",
+      "class": "JAMMING",
+      "tractors": [
+        "T1",
+        "T3"
+      ],
+      "action": "HALT_AND_REPORT",
+      "confidence": 0.65,
+      "evidence": [
+        "CN0 degradation without ionospheric cause: mean CN0 fell to 27.7 dB-Hz on T3 with min_sats=4 at 2026-05-06T18:30:30Z; quiet baseline CN0 ~45 dB-Hz, sats ~12.",
+        "Satellite count bottomed at 4 on T3 at 2026-05-06T18:30:00Z (baseline 12).",
+        "2-tractor fleet simultaneously degraded; consistent with a single wide-area RF source, not three independent equipment faults."
+      ]
+    },
+    {
       "start": "2026-05-06T18:30:44+00:00",
       "end": "2026-05-06T18:31:27+00:00",
       "class": "MULTIPATH",
@@ -2564,20 +2580,6 @@
       "evidence": [
         "Short cross-track transient on T2 at 2026-05-06T18:30:49Z lasting 32 s, xte peaked at 0.57 m while mean CN0 stayed at 37.2 dB-Hz with 12 sats - CN0 and sats normal rule out jamming/ionosphere.",
         "Geolocation 46.9071 N / -97.1973 W falls in the recurring multipath band (~46.907 N) observed in dev-label episodes TRN-11/TRN-12; interpret as reflection off nearby obstacle, not a guidance threat (action CONTINUE_FALSE_ALARM)."
-      ]
-    },
-    {
-      "start": "2026-05-06T18:33:30+00:00",
-      "end": "2026-05-06T18:58:30+00:00",
-      "class": "EQUIPMENT_FAULT",
-      "tractors": [
-        "T3"
-      ],
-      "action": "SERVICE_MACHINE_OTHERS_CONTINUE",
-      "confidence": 0.75,
-      "evidence": [
-        "min_cn0 dipped to 11.1 dB-Hz on T3 at 2026-05-06T18:37:00Z while mean CN0 stayed normal - consistent with a per-antenna fault.",
-        "Other tractors in the fleet remain within the quiet-period baseline, and no SDA storm or RFI report corroborates a wide-area cause."
       ]
     },
     {

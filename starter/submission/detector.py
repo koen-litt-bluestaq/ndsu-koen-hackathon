@@ -316,7 +316,7 @@ def classify(grid: pd.DataFrame) -> pd.DataFrame:
     extra_drop = g["storm_stable"] & (g["fleet_step_down"] >= 5.0)
     g["jamming"] = (
         g["cn0_low"]
-        & (rfi_corr | (~storm_env) | extra_drop)
+        & (rfi_corr | (~storm_strong) | extra_drop)
         & g["moving"]
     )
     # Fleet-wide extra-drop can satisfy jamming even without space_weather
@@ -463,6 +463,33 @@ def merge_fleet(episodes: list[Episode]) -> list[Episode]:
                         changed = True
             out.append(Episode(cls=cls, start=start, end=end,
                                tractors=sorted(tractors), bins=bins))
+    return out
+
+
+def suppress_overlapped_equipment(episodes: list[Episode]) -> list[Episode]:
+    """Drop EQUIPMENT_FAULT episodes that are substantially (>=50%) covered by a
+    concurrent JAMMING episode involving the same tractor. Jamming already
+    explains the CN0 and min_cn0 degradation; emitting a parallel fault call
+    creates a confusing "halt and service both" instruction for the operator."""
+    jam = [e for e in episodes if e.cls == "JAMMING"]
+    out: list[Episode] = []
+    for e in episodes:
+        if e.cls != "EQUIPMENT_FAULT":
+            out.append(e)
+            continue
+        e_dur = (e.end - e.start).total_seconds()
+        covered = False
+        for j in jam:
+            if not set(e.tractors) & set(j.tractors):
+                continue
+            ov_start = max(e.start, j.start)
+            ov_end = min(e.end, j.end)
+            ov = (ov_end - ov_start).total_seconds()
+            if ov > 0 and e_dur > 0 and ov / e_dur >= 0.5:
+                covered = True
+                break
+        if not covered:
+            out.append(e)
     return out
 
 
@@ -766,6 +793,7 @@ def run_detector(feeds: Feeds,
     scored = grid[(grid["ts"] >= window_start) & (grid["ts"] < window_end)].copy()
     episodes = segment(scored)
     episodes = merge_fleet(episodes)
+    episodes = suppress_overlapped_equipment(episodes)
     # Add multipath on raw 1 Hz
     episodes += detect_multipath(feeds.telemetry, feeds, window_start, window_end)
 
