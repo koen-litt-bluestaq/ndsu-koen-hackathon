@@ -284,6 +284,29 @@ def classify(grid: pd.DataFrame) -> pd.DataFrame:
     g["fleet_cn0_30min"] = g["ts"].map(rolling)
     g["fleet_step_down"] = g["fleet_cn0_30min"] - g["fleet_cn0_median"]
 
+    # Per-tractor 2-hour rolling MAX = quiet-period baseline for that tractor.
+    # Max (rather than median) preserves the quiet value across a ~30-min event
+    # that would otherwise pull a median baseline down with it. A tractor that
+    # drops >=5 dB below its own quiet baseline is "degraded" even if its
+    # absolute CN0 stayed above the fleet-wide 38 dB-Hz floor - e.g. T2 during
+    # the 18:30 UTC fleet jamming, which sits at 38-40 dB-Hz off a 45 baseline.
+    baseline_parts = []
+    for tr, sub in g.groupby("tractor_id"):
+        sub_sorted = sub.sort_values("ts").set_index("ts")
+        rolling_quiet = sub_sorted["cn0_mean"].rolling("2h", min_periods=10).max()
+        baseline_parts.append(pd.DataFrame({
+            "ts": rolling_quiet.index,
+            "tractor_id": tr,
+            "cn0_quiet_self": rolling_quiet.values,
+        }))
+    baseline_df = pd.concat(baseline_parts, ignore_index=True)
+    g = g.merge(baseline_df, on=["ts", "tractor_id"], how="left")
+    g["cn0_step_down_self"] = g["cn0_quiet_self"] - g["cn0_mean"]
+    # Degraded: absolute floor OR relative step-down from the tractor's own
+    # quiet baseline. Scoped to the JAMMING gate so we don't loosen the
+    # SPACE_WEATHER and EQUIPMENT_FAULT definitions elsewhere.
+    g["cn0_degraded"] = g["cn0_low"] | (g["cn0_step_down_self"] >= 5)
+
     storm_env = g["s4_storm"] | g["kp_storm"] | g["adv_sw"]
     # Strong storm needs real corroboration - prevents an "advisory active"
     # flag alone from dragging quiet bins into SPACE_WEATHER.
@@ -315,7 +338,7 @@ def classify(grid: pd.DataFrame) -> pd.DataFrame:
     # storm itself coming on.
     extra_drop = g["storm_stable"] & (g["fleet_step_down"] >= 5.0)
     g["jamming"] = (
-        g["cn0_low"]
+        g["cn0_degraded"]
         & (rfi_corr | (~storm_strong) | extra_drop)
         & g["moving"]
     )

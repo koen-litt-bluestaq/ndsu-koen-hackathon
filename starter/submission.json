@@ -2544,6 +2544,7 @@
       "class": "JAMMING",
       "tractors": [
         "T1",
+        "T2",
         "T3"
       ],
       "action": "HALT_AND_REPORT",
@@ -2551,7 +2552,7 @@
       "evidence": [
         "CN0 degradation without ionospheric cause: mean CN0 fell to 27.7 dB-Hz on T3 with min_sats=4 at 2026-05-06T18:30:30Z; quiet baseline CN0 ~45 dB-Hz, sats ~12.",
         "Satellite count bottomed at 4 on T3 at 2026-05-06T18:30:00Z (baseline 12).",
-        "2-tractor fleet simultaneously degraded; consistent with a single wide-area RF source, not three independent equipment faults."
+        "3-tractor fleet simultaneously degraded; consistent with a single wide-area RF source, not three independent equipment faults."
       ]
     },
     {
