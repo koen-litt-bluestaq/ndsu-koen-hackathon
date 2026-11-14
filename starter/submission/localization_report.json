@@ -1,0 +1,195 @@
+{
+  "events": [
+    {
+      "window": [
+        "2026-05-06T18:30:00Z",
+        "2026-05-06T19:00:00Z"
+      ],
+      "n_samples": 5400,
+      "rss": 1892.794,
+      "rmse_db": 0.592,
+      "fit": {
+        "lat": 46.905837,
+        "lon": -97.205945,
+        "n_path_loss": 2.0,
+        "K": 63.562,
+        "n_at_upper_bound": false,
+        "n_at_lower_bound": true
+      },
+      "uncertainty": {
+        "sigma_major_m": 3.5,
+        "sigma_minor_m": 1.1,
+        "rotation_deg": 111.9,
+        "sigma_n": 0.014
+      },
+      "tractor_stats": {
+        "T1": {
+          "baseline_cn0_dbhz": 45.0,
+          "mean_drop_db": 8.83,
+          "max_drop_db": 12.9,
+          "n_samples_fit": 1800
+        },
+        "T2": {
+          "baseline_cn0_dbhz": 45.0,
+          "mean_drop_db": 5.66,
+          "max_drop_db": 8.5,
+          "n_samples_fit": 1800
+        },
+        "T3": {
+          "baseline_cn0_dbhz": 45.0,
+          "mean_drop_db": 11.96,
+          "max_drop_db": 18.6,
+          "n_samples_fit": 1800
+        }
+      },
+      "baselines_cn0_dbhz": {
+        "T1": 45.0,
+        "T2": 45.0,
+        "T3": 45.0
+      },
+      "label": "18:30 fleet jamming (no SDA report)",
+      "rfi_report": null,
+      "n_sensitivity": {
+        "per_n": [
+          {
+            "n_path_loss": 2.0,
+            "lat": 46.905837,
+            "lon": -97.205945,
+            "K": 63.562,
+            "rmse_db": 0.592
+          },
+          {
+            "n_path_loss": 2.5,
+            "lat": 46.906247,
+            "lon": -97.207404,
+            "K": 79.372,
+            "rmse_db": 0.635
+          },
+          {
+            "n_path_loss": 3.0,
+            "lat": 46.906754,
+            "lon": -97.20892,
+            "K": 95.763,
+            "rmse_db": 0.7
+          },
+          {
+            "n_path_loss": 3.5,
+            "lat": 46.9073,
+            "lon": -97.210457,
+            "K": 112.578,
+            "rmse_db": 0.759
+          },
+          {
+            "n_path_loss": 4.0,
+            "lat": 46.907861,
+            "lon": -97.212007,
+            "K": 129.737,
+            "rmse_db": 0.808
+          }
+        ],
+        "centroid_lat": 46.9068,
+        "centroid_lon": -97.208947,
+        "max_deviation_m": 260.7
+      }
+    },
+    {
+      "window": [
+        "2026-05-06T02:12:00Z",
+        "2026-05-06T02:54:00Z"
+      ],
+      "n_samples": 7522,
+      "rss": 2790.228,
+      "rmse_db": 0.609,
+      "fit": {
+        "lat": 46.900891,
+        "lon": -97.193405,
+        "n_path_loss": 2.0,
+        "K": 65.538,
+        "n_at_upper_bound": false,
+        "n_at_lower_bound": true
+      },
+      "uncertainty": {
+        "sigma_major_m": 1.9,
+        "sigma_minor_m": 0.8,
+        "rotation_deg": 117.4,
+        "sigma_n": 0.009
+      },
+      "tractor_stats": {
+        "T1": {
+          "baseline_cn0_dbhz": 44.9,
+          "mean_drop_db": 12.18,
+          "max_drop_db": 18.6,
+          "n_samples_fit": 2520
+        },
+        "T2": {
+          "baseline_cn0_dbhz": 45.0,
+          "mean_drop_db": 10.46,
+          "max_drop_db": 27.2,
+          "n_samples_fit": 2482
+        },
+        "T3": {
+          "baseline_cn0_dbhz": 45.0,
+          "mean_drop_db": 9.64,
+          "max_drop_db": 14.0,
+          "n_samples_fit": 2520
+        }
+      },
+      "baselines_cn0_dbhz": {
+        "T1": 44.9,
+        "T2": 45.0,
+        "T3": 45.0
+      },
+      "label": "02:12 fleet jamming (RFI-003 corroborated)",
+      "n_sensitivity": {
+        "per_n": [
+          {
+            "n_path_loss": 2.0,
+            "lat": 46.900891,
+            "lon": -97.193405,
+            "K": 65.538,
+            "rmse_db": 0.609
+          },
+          {
+            "n_path_loss": 2.5,
+            "lat": 46.900423,
+            "lon": -97.192215,
+            "K": 81.122,
+            "rmse_db": 0.681
+          },
+          {
+            "n_path_loss": 3.0,
+            "lat": 46.899853,
+            "lon": -97.190964,
+            "K": 97.293,
+            "rmse_db": 0.784
+          },
+          {
+            "n_path_loss": 3.5,
+            "lat": 46.899248,
+            "lon": -97.189662,
+            "K": 113.915,
+            "rmse_db": 0.875
+          },
+          {
+            "n_path_loss": 4.0,
+            "lat": 46.89862,
+            "lon": -97.18832,
+            "K": 130.915,
+            "rmse_db": 0.949
+          }
+        ],
+        "centroid_lat": 46.899807,
+        "centroid_lon": -97.190913,
+        "max_deviation_m": 237.1
+      },
+      "rfi_report": {
+        "id": "RFI-003",
+        "lat": 46.888896,
+        "lon": -97.208767,
+        "semi_major_km": 3.5,
+        "semi_minor_km": 1.91,
+        "distance_to_our_estimate_m": 1772.4
+      }
+    }
+  ]
+}
